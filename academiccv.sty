@@ -1,0 +1,106 @@
+\NeedsTeXFormat{LaTeX2e}[2022-06-01]
+\ProvidesPackage{academiccv}[2026/11/11 Academic CV layout]
+
+\RequirePackage[T1]{fontenc}
+% Load babel last so it sets the full-date format.
+\RequirePackage[en-GB]{datetime2}
+\RequirePackage[english]{babel}
+\RequirePackage[semibold,light,tabular]{sourceserifpro}
+\RequirePackage{microtype}
+\RequirePackage[left=15mm,right=15mm,top=15mm,bottom=10mm]{geometry}
+\RequirePackage{graphicx}
+\RequirePackage{tabularx}
+\RequirePackage{titlesec}
+\RequirePackage{xcolor}
+\RequirePackage{xurl}
+\RequirePackage[colorlinks,hypertexnames=false]{hyperref}
+\definecolor{cvlinkblue}{rgb}{0,0,0.5}
+\hypersetup{allcolors=cvlinkblue}
+
+\ifdefined\pdfgentounicode
+  \input{glyphtounicode}
+  \pdfgentounicode=1
+\fi
+
+\pagestyle{empty}
+\setcounter{secnumdepth}{0}
+\setlength{\parindent}{0pt}
+\raggedbottom
+
+\titleformat{\section}
+  {\normalfont\large\scshape}{}{0pt}{}
+  [\vspace{1pt}{\titlerule[0.8pt]}]
+\titlespacing*{\section}{0pt}{10pt}{5pt}
+
+\newcommand{\cvcurrentmonth}{\DTMenglishmonthname{\month}\space\number\year}
+
+% Optional version month, name, affiliation and address, contact details.
+\NewDocumentCommand{\cvheader}{O{} m +m +m}{%
+  \hypersetup{pdftitle={Curriculum Vitae - #2},pdfauthor={#2}}%
+  \noindent\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}X r@{}}
+    \huge\scshape #2 & \footnotesize\IfBlankF{#1}{This version: #1}
+  \end{tabularx}\par
+  \nobreak\hrule height 0.8pt
+  \IfBlankF{#3#4}{%
+    \nobreak\vspace{5pt}%
+    \noindent
+    \begin{minipage}[t]{0.69\linewidth}
+      \raggedright #3
+    \end{minipage}\hfill
+    \begin{minipage}[t]{0.30\linewidth}
+      \raggedleft #4
+    \end{minipage}\par
+  }%
+}
+
+\NewDocumentCommand{\cvbullet}{}{\raisebox{0.2ex}{\scalebox{0.6}{$\bullet$}}}
+\NewDocumentCommand{\cvsep}{}{\enspace\cvbullet\enspace}
+
+% Title, institution or details, dates, note beneath the dates.
+\NewDocumentCommand{\cventry}{m +m m m}{%
+  \par\nointerlineskip
+  {\renewcommand{\arraystretch}{1.2}%
+    \noindent\begin{tabularx}{\linewidth}{@{\hspace{3\tabcolsep}}X
+      >{\raggedleft\arraybackslash}p{6.5em}}
+      \textbf{#1}\IfBlankF{#2}{\par #2} &
+      #3\IfBlankF{#4}{\IfBlankF{#3}{\par}#4}
+    \end{tabularx}\par
+  }%
+}
+
+% An italic group label within a section.
+\NewDocumentCommand{\cvsubheading}{m}{%
+  \par\addvspace{4pt}%
+  \noindent\hspace{\tabcolsep}\textit{#1}\par\nopagebreak\vspace{3pt}%
+}
+
+% A text row aligned with the main entry column.
+\NewDocumentCommand{\cvtext}{+m}{%
+  \par\nointerlineskip
+  {\renewcommand{\arraystretch}{1.2}%
+    \noindent\begin{tabularx}{\linewidth}{@{\hspace{3\tabcolsep}}X}
+      #1
+    \end{tabularx}\par
+  }%
+}
+
+% Title, citation and optional links, on the same line where space permits.
+\NewDocumentCommand{\cvpublication}{m m}{%
+  \par\addvspace{3pt}%
+  {\leftskip=\dimexpr3\tabcolsep+2em\relax
+    \rightskip=\dimexpr3\tabcolsep+1em\relax
+    \interlinepenalty=10000
+    \textbf{#1}.\IfBlankF{#2}{ #2}\par
+  }%
+}
+
+% A skill or language label and its description.
+\NewDocumentCommand{\cvdetail}{m +m}{%
+  \par\nointerlineskip
+  {\renewcommand{\arraystretch}{1.2}%
+    \noindent\begin{tabularx}{\linewidth}{@{\hspace{3\tabcolsep}}
+      >{\bfseries\raggedright\arraybackslash}p{76pt}X}
+      #1 & #2
+    \end{tabularx}\par
+  }%
+}
