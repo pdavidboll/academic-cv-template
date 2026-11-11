@@ -2,6 +2,14 @@
 \usepackage{academiccv}
 \usepackage{needspace}
 
+% Optional profile links for names in publications.bib.
+\cvbiblink{Jim}{Lemon}{https://example.org}
+\cvbiblink{Greg}{Henderson}{https://example.org}
+\cvbiblink{Rowan}{Shaw}{https://example.org}
+\cvbiblink{Glen}{Morton}{https://example.org}
+\cvbiblink{Gus}{Ellery}{https://example.org}
+\cvbiblink{Sidney}{Weller}{https://example.org}
+
 % Define shortcuts for links that appear several times.
 \newcommand{\JimLemon}{\href{https://example.org}{Jim Lemon}}
 \newcommand{\GregHenderson}{\href{https://example.org}{Greg Henderson}}
@@ -42,31 +50,10 @@
 
 \section{Publications}
 
-% Title, citation and links. Use \cvsep to separate links with a small bullet.
-\cvpublication{A Day in the Studio}
-  {With \href{https://example.org}{Glen Morton} and
-   \href{https://example.org}{Gus Ellery}. \emph{Four-Track Review}, 2007.\newline
-   \mbox{\cvsep \href{https://example.org/day-in-the-studio}{Published version}}
-   \mbox{\cvsep \href{https://example.org/day-in-the-studio-draft}{Working paper}}}
-
-\vspace{\baselineskip}
-\cvsubheading{Earlier publications}
-\cvpublication{Free as a Fragment}
-  {With \GregHenderson{} and \RowanShaw. \emph{Four-Track Review}, 1995.\newline
-   \mbox{\cvsep \href{https://example.org/free-as-a-fragment}{Published version}}}
-\cvpublication{The Long and Winding Bass Line}
-  {With \href{https://example.org}{Sidney Weller}. \emph{Violin Bass Quarterly}, 1982.\newline
-   \mbox{\cvsep \href{https://example.org/winding-bass-line}{Published version}}}
-\cvpublication{With a Little Help from the Rhythm Section}
-  {With \RowanShaw. \emph{Backbeat Review}, 1982.\newline
-   \mbox{\cvsep \href{https://example.org/rhythm-section}{Published version}}}
-
-\cvpublication{Something Beneath the Melody}
-  {With \GregHenderson. \emph{Violin Bass Quarterly}, 1969.\newline
-   \mbox{\cvsep \href{https://example.org/beneath-the-melody}{Published version}}}
-\cvpublication{Working It Out in the Middle Eight}
-  {With \JimLemon. \emph{Backbeat Review}, 1965.\newline
-   \mbox{\cvsep \href{https://example.org/middle-eight}{Published version}}}
+% Include all entries in publications.bib, sorted by year with the newest first.
+\nocite{*}
+\bibliographystyle{academiccv}
+\bibliography{publications}
 
 \section{Professional Experience}
 

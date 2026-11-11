@@ -104,3 +104,39 @@
     \end{tabularx}\par
   }%
 }
+
+% The bibliography style emits the same \cvpublication command as manual entries.
+\newenvironment{cvbibliography}[1]
+  {\list{}{%
+     \usecounter{enumiv}%
+     \setlength{\leftmargin}{0pt}%
+     \setlength{\labelwidth}{0pt}%
+     \setlength{\labelsep}{0pt}%
+     \setlength{\itemindent}{0pt}%
+     \setlength{\itemsep}{0pt}%
+     \setlength{\parsep}{0pt}%
+     \setlength{\topsep}{0pt}}%
+   \renewcommand{\makelabel}[1]{}}
+  {\endlist}
+
+% Optional profile links, keyed by the given and family names in the .bib file.
+\ExplSyntaxOn
+\prop_new:N \g_academiccv_biblinks_prop
+\cs_new_protected:Npn \academiccv_bibkey:nn #1#2
+  {
+    \tl_set:Nx \l_tmpa_tl {\tl_to_str:n {#1/#2}}
+    \regex_replace_all:nnN {\x{7E}} {\x{20}} \l_tmpa_tl
+  }
+\NewDocumentCommand{\cvbiblink}{m m m}
+  {
+    \academiccv_bibkey:nn {#1}{#2}
+    \prop_gput:NVn \g_academiccv_biblinks_prop \l_tmpa_tl {#3}
+  }
+\NewDocumentCommand{\cvbibname}{m m m}
+  {
+    \academiccv_bibkey:nn {#1}{#2}
+    \prop_get:NVNTF \g_academiccv_biblinks_prop \l_tmpa_tl \l_tmpb_tl
+      {\exp_args:NV \href \l_tmpb_tl {#3}}
+      {#3}
+  }
+\ExplSyntaxOff
